@@ -45,6 +45,7 @@ class TasksController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            "content"=>"required",
             "status"=>"required|max:10",]);
         
         $task=new Task;
@@ -95,6 +96,7 @@ class TasksController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            "content"=>"required",
             "status"=>"required|max:10",]);
         
         $task=Task::findOrFail($id);
