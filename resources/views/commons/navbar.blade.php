@@ -15,8 +15,9 @@
                         <ul class="dropdown-menu dropdown-menu-right">
                             {{-- 新規タスク追加 --}}
                             <li class="doropdown-item"><a href="#">{!! link_to_route('tasks.create', '新規タスクを追加', [], ['class' => 'nav-link']) !!}</a></li>
+                            <li class="dropdown-divider"></li>
                             {{-- ログアウト --}}
-                            <li class="doropdown-item">{!! link_to_route('logout.get', 'Logout') !!}</li>
+                            <li class="doropdown-item">{!! link_to_route('logout.get', 'Logout',[], ['class' => 'nav-link']) !!}</li>
                         </ul>
                     </li>
                 @else
