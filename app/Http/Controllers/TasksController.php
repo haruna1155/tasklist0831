@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\Auth;
-
 use App\Task;
 
 class TasksController extends Controller
@@ -16,19 +14,27 @@ class TasksController extends Controller
      * @return \Illuminate\Http\Response
      */
      
-     public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    //  public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     
      
-    public function index(Request $request)
+    public function index()
     {
-        $tasks = Task::where('user_id', $request->user()->id)->get();
+        $data = [];
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
+            
+            $data = [
+                "user" => $user,
+                "tasks" => $tasks,
+            ];
+        }        
+        
+        return view('welcome',$data);
 
-        return view('tasks.index', [
-            "tasks" => $tasks,
-            ]);
     }
 
     /**
@@ -56,11 +62,11 @@ class TasksController extends Controller
             "content"=>"required",
             "status"=>"required|max:10",]);
         
-        //$task=new Task;
         $request->user()->tasks()->create([
             'content' => $request->content,
             'status' => $request->status,
             'user_id' => $request->user()->id,
+            
             ]);
         
         return redirect("/");
@@ -111,11 +117,9 @@ class TasksController extends Controller
         
         $task=Task::findOrFail($id);
         
-        $request->user()->tasks()->create([
-            'content' => $request->content,
-            'status' => $request->status,
-            'user_id' => $request->user()->id,
-        ]);    
+        $task->content = $request->content;
+        $task->status = $request->status;
+        $task->save();
         
         return redirect("/");
     }

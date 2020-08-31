@@ -1,5 +1,6 @@
-@if (count($tasks) > 0)
-    <ul class="list-unstyled">
+<ul class="list-unstyled">
+    <h1>タスク一覧</h1>
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>id</th>
@@ -17,5 +18,9 @@
                 @endforeach
             </tbody>
         </table>
-    </ul>
-@endif
+</ul>
+
+{!! link_to_route("tasks.create","新規タスクを作成",[],
+["class"=>"btn btn-primary"]) !!}
+
+
