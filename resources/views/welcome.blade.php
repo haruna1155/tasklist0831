@@ -3,7 +3,7 @@
 @section('content')
 
     @if (Auth::check())
-       @include('tasks.tasks')
+        @include('tasks.tasks')
     @else
         <div class="center jumbotron mt-3">
             <div class="text-center">
