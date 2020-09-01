@@ -11,5 +11,5 @@
                 {!! link_to_route('signup.get', 'Sign up now!', [], ['class' => 'btn btn-warning btn-lg']) !!}
             </div>
         </div>
-    @endif 
+    @endif
 @endsection
